@@ -33,6 +33,7 @@ class Profile(models.Model):
         choices=FAVORITE_GENRES_CHOICES,
         blank=True
     )
+    is_admin = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_at']
@@ -43,7 +44,10 @@ class Profile(models.Model):
 
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(owner=instance)
+        profile = Profile.objects.create(owner=instance)
+        if instance.is_superuser:
+            profile.is_admin = True
+            profile.save()
 
 
 post_save.connect(create_profile, sender=User)
