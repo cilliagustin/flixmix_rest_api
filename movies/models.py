@@ -24,11 +24,13 @@ class Movie(models.Model):
         'crew.Actor',
         related_name='movie_cast',
     )
-    image = models.ImageField(
+    poster = models.ImageField(
         upload_to='images/', default='../blank_movie_rlo48q', blank=True
     )
     release_year = models.IntegerField(
-        validators=[MinValueValidator(1888), MaxValueValidator(date.today().year)]
+        validators=[
+            MinValueValidator(1888), MaxValueValidator(date.today().year)
+        ]
     )
     movie_genre = models.CharField(
         max_length=20,
@@ -47,7 +49,6 @@ class Movie(models.Model):
             return "{:.2f}".format(
                 round(ratings.aggregate(Avg('value'))['value__avg'], 2))
         return None
-
 
     @property
     def decade(self):
