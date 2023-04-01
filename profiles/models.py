@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from utils.choices import GENRES_CHOICES
 
 
 class Profile(models.Model):
@@ -12,25 +13,9 @@ class Profile(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../default_profile_i0yy2i'
     )
-    FAVORITE_GENRES_CHOICES = [
-        ('action', 'Action'),
-        ('adventure', 'Adventure'),
-        ('comedy', 'Comedy'),
-        ('drama', 'Drama'),
-        ('fantasy', 'Fantasy'),
-        ('horror', 'Horror'),
-        ('mystery', 'Mystery'),
-        ('romance', 'Romance'),
-        ('science_fiction', 'Science Fiction'),
-        ('thriller', 'Thriller'),
-        ('crime', 'Crime'),
-        ('documentary', 'Documentary'),
-        ('historical', 'Historical'),
-        ('musical', 'Musical')
-    ]
     favorite_genre = models.CharField(
         max_length=20,
-        choices=FAVORITE_GENRES_CHOICES,
+        choices=GENRES_CHOICES,
         blank=True
     )
     is_admin = models.BooleanField(default=False)
