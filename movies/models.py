@@ -51,7 +51,7 @@ class Movie(models.Model):
         return None
 
     @property
-    def decade(self):
+    def release_decade(self):
         return int(self.release_year / 10) * 10
 
     def __str__(self):
