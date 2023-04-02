@@ -24,6 +24,7 @@ class MovieSerializer(serializers.ModelSerializer):
     main_cast = ActorSerializer(many=True, required=False)
     release_decade = serializers.ReadOnlyField()
     seen_count = serializers.SerializerMethodField()
+    poster = serializers.ImageField(required=False)
 
     def get_is_owner(self, obj):
         request = self.context['request']

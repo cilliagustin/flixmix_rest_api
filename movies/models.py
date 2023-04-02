@@ -19,10 +19,12 @@ class Movie(models.Model):
     directors = models.ManyToManyField(
         'crew.Director',
         related_name='movie_director',
+        blank=True
     )
     main_cast = models.ManyToManyField(
         'crew.Actor',
         related_name='movie_cast',
+        blank=True
     )
     poster = models.ImageField(
         upload_to='images/', default='../blank_movie_rlo48q', blank=True
