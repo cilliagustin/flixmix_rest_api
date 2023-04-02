@@ -1,14 +1,14 @@
 from django.db import IntegrityError
 from rest_framework import serializers
-from .models import Seen
+from .models import Watchlist
 
 
-class SeenSerializer(serializers.ModelSerializer):
+class WatchlistSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     movie_title = serializers.ReadOnlyField(source='movie.title')
 
     class Meta:
-        model = Seen
+        model = Watchlist
         fields = [
             'id', 'owner', 'movie', 'movie_title', 'created_at'
         ]
@@ -18,5 +18,5 @@ class SeenSerializer(serializers.ModelSerializer):
             return super().create(validated_data)
         except IntegrityError:
             raise serializers.ValidationError({
-                'detail': 'Yoy have already marked this movie as seen!'
+                'detail': 'You have already added this movie to your watchlist'
             })

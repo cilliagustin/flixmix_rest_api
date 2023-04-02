@@ -8,4 +8,5 @@ urlpatterns = [
     path('', include('movies.urls')),
     path('', include('ratings.urls')),
     path('', include('seen_movie.urls')),
+    path('', include('watchlist.urls')),
 ]

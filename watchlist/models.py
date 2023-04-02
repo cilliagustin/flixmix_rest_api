@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from movies.models import Movie
 
 
-class Seen(models.Model):
+class Watchlist(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(
-        Movie, related_name='seen', on_delete=models.CASCADE
+        Movie, related_name='watchlist', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -15,4 +15,4 @@ class Seen(models.Model):
         unique_together = ['owner', 'movie']
 
     def __str__(self):
-        return f'{self.owner} has seen {self.movie}'
+        return f'{self.owner} wants to watch {self.movie}'
