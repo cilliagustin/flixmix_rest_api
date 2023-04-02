@@ -1,11 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from profiles.models import Profile
 from movies.models import Movie
 
 
 class Rating(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     value = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
