@@ -8,7 +8,7 @@ class SeenSerializer(serializers.ModelSerializer):
     movie_title = serializers.ReadOnlyField(source='movie.title')
 
     class Meta:
-        model = Seen()
+        model = Seen
         fields = [
             'id', 'owner', 'movie', 'movie_title', 'created_at'
         ]
