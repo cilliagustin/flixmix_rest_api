@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include('seen_movie.urls')),
     path('', include('watchlist.urls')),
     path('', include('followers.urls')),
+    path('', include('crew.urls')),
 ]
