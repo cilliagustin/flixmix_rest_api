@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from flixmix_rest_api.permissions import IsOwnerOrReadOnly
 from .models import Seen
 from .serializers import SeenSerializer
+from watchlist.models import Watchlist
 
 
 class SeenList(generics.ListCreateAPIView):
@@ -12,7 +13,17 @@ class SeenList(generics.ListCreateAPIView):
     queryset = Seen.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        user = self.request.user
+        movie = serializer.validated_data['movie']
+        try:
+            # Check if the movie is already in the watchlist for the user
+            watchlist = Watchlist.objects.get(owner=user, movie=movie)
+            # In that case, delete it from the watchlist and add it to the
+            # seen list instead
+            watchlist.delete()
+            serializer.save(owner=user)
+        except Watchlist.DoesNotExist:
+            serializer.save(owner=user)
 
 
 class SeenDetailView(generics.RetrieveDestroyAPIView):
