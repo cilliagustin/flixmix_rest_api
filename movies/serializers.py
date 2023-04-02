@@ -58,5 +58,6 @@ class MovieSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'created_at',
             'updated_at', 'title', 'synopsis', 'directors', 'main_cast',
-            'poster', 'release_year', 'release_decade', 'movie_genre', 'avg_rating'
+            'poster', 'release_year', 'release_decade', 'movie_genre',
+            'avg_rating'
         ]
