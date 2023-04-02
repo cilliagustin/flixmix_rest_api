@@ -23,6 +23,7 @@ class MovieSerializer(serializers.ModelSerializer):
     directors = DirectorSerializer(many=True, required=False)
     main_cast = ActorSerializer(many=True, required=False)
     release_decade = serializers.ReadOnlyField()
+    seen_count = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -30,6 +31,12 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def get_avg_rating(self, obj):
         return obj.avg_rating()
+
+    def get_seen_count(self, obj):
+        return obj.seen_count()
+
+    def get_watchlist_count(self, obj):
+        return obj.watchlist_count()
 
     def validate_poster(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -59,5 +66,5 @@ class MovieSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id', 'created_at',
             'updated_at', 'title', 'synopsis', 'directors', 'main_cast',
             'poster', 'release_year', 'release_decade', 'movie_genre',
-            'avg_rating'
+            'avg_rating', 'seen_count', 'watchlist_count'
         ]
