@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'profiles',
+    'followers',
     'movies',
     'ratings',
     'seen_movie',
