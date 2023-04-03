@@ -1,18 +1,5 @@
 from rest_framework import serializers
 from .models import Movie
-from crew.models import Director, Actor
-
-
-class DirectorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Director
-        fields = ['id', 'crew_name']
-
-
-class ActorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Actor
-        fields = ['id', 'crew_name']
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -20,8 +7,6 @@ class MovieSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     avg_rating = serializers.SerializerMethodField()
-    directors = DirectorSerializer(many=True, required=False)
-    main_cast = ActorSerializer(many=True, required=False)
     release_decade = serializers.ReadOnlyField()
     seen_count = serializers.SerializerMethodField()
     poster = serializers.ImageField(required=False)

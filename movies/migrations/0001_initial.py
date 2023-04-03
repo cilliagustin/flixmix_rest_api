@@ -12,7 +12,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('crew', '0001_initial'),
     ]
 
     operations = [
@@ -27,8 +26,8 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(blank=True, default='../blank_movie_rlo48q', upload_to='images/')),
                 ('release_year', models.IntegerField(validators=[django.core.validators.MinValueValidator(1888), django.core.validators.MaxValueValidator(2023)])),
                 ('movie_genre', models.CharField(blank=True, choices=[('action', 'Action'), ('adventure', 'Adventure'), ('comedy', 'Comedy'), ('drama', 'Drama'), ('fantasy', 'Fantasy'), ('horror', 'Horror'), ('mystery', 'Mystery'), ('romance', 'Romance'), ('science_fiction', 'Science Fiction'), ('thriller', 'Thriller'), ('crime', 'Crime'), ('documentary', 'Documentary'), ('historical', 'Historical'), ('musical', 'Musical')], max_length=20)),
-                ('directors', models.ManyToManyField(limit_choices_to={'is_director': True}, related_name='movie_director', to='crew.Crew')),
-                ('main_cast', models.ManyToManyField(related_name='movie_cast', to='crew.Crew')),
+                ('directors', models.TextField(max_length=400)),
+                ('main_cast', models.TextField(max_length=400)),
                 ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
             options={

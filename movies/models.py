@@ -16,16 +16,8 @@ class Movie(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=100)
     synopsis = models.TextField(max_length=400)
-    directors = models.ManyToManyField(
-        'crew.Director',
-        related_name='movie_director',
-        blank=True
-    )
-    main_cast = models.ManyToManyField(
-        'crew.Actor',
-        related_name='movie_cast',
-        blank=True
-    )
+    directors = models.TextField(max_length=50)
+    main_cast = models.TextField(max_length=200)
     poster = models.ImageField(
         upload_to='images/', default='../blank_movie_rlo48q', blank=True
     )

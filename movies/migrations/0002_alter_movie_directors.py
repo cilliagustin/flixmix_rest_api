@@ -6,7 +6,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('crew', '0002_rename_name_crew_crew_name'),
         ('movies', '0001_initial'),
     ]
 
@@ -14,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='movie',
             name='directors',
-            field=models.ManyToManyField(related_name='movie_director', to='crew.Crew'),
+            field=models.TextField(max_length=400),
         ),
     ]

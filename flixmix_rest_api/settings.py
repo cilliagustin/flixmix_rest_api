@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'seen_movie',
     'watchlist',
     'lists',
-    'crew',
 ]
 
 MIDDLEWARE = [
