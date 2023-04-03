@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Movie
+from seen_movie.models import Seen
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -10,6 +11,7 @@ class MovieSerializer(serializers.ModelSerializer):
     release_decade = serializers.ReadOnlyField()
     seen_count = serializers.SerializerMethodField()
     poster = serializers.ImageField(required=False)
+    seen_id = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -23,6 +25,15 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def get_watchlist_count(self, obj):
         return obj.watchlist_count()
+
+    def get_seen_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            seen = Seen.objects.filter(
+                owner=user, movie=obj
+            ).first()
+            return seen.id if seen else None
+        return None
 
     def validate_poster(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -52,5 +63,5 @@ class MovieSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id', 'created_at',
             'updated_at', 'title', 'synopsis', 'directors', 'main_cast',
             'poster', 'release_year', 'release_decade', 'movie_genre',
-            'avg_rating', 'seen_count', 'watchlist_count'
+            'avg_rating', 'seen_count', 'watchlist_count', 'seen_id'
         ]
