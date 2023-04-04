@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include('watchlist.urls')),
     path('', include('followers.urls')),
     path('', include('lists.urls')),
+    path('', include('comments.urls')),
 ]
