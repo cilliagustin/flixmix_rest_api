@@ -36,26 +36,29 @@ class MovieSerializer(serializers.ModelSerializer):
         return None
 
     def validate_poster(self, value):
-        if value.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError('Image size larger than 2MB!')
-        if value.image.height > 4096:
-            raise serializers.ValidationError(
-                'Image height larger than 4096px!'
-            )
-        if value.image.width > 4096:
-            raise serializers.ValidationError(
-                'Image width larger than 4096px!'
-            )
-        # make sure the image has a 2:3 ratio
-        # (width aproximately 70% of height)
-        if (
-            value.image.width < (value.image.height * .60) or
-            value.image.width > (value.image.height * .80)
-        ):
-            raise serializers.ValidationError(
-                'Poster images have an aproximate ratio of 2:3!'
-            )
-        return value
+        if value:
+            if value.size > 2 * 1024 * 1024:
+                raise serializers.ValidationError(
+                    'Image size larger than 2MB!'
+                )
+            if value.image.height > 4096:
+                raise serializers.ValidationError(
+                    'Image height larger than 4096px!'
+                )
+            if value.image.width > 4096:
+                raise serializers.ValidationError(
+                    'Image width larger than 4096px!'
+                )
+            # make sure the image has a 2:3 ratio
+            # (width aproximately 70% of height)
+            if (
+                value.image.width < (value.image.height * .60) or
+                value.image.width > (value.image.height * .80)
+            ):
+                raise serializers.ValidationError(
+                    'Poster images have an aproximate ratio of 2:3!'
+                )
+            return value
 
     class Meta:
         model = Movie
