@@ -8,6 +8,7 @@ class RatingSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     movie_title = serializers.ReadOnlyField(source='movie.title')
+    comments_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -17,9 +18,9 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'movie', 'movie_title',
-            'value', 'review', 'created_at', 'updated_at',
+            'value', 'review', 'created_at', 'updated_at', 'comments_count'
         ]
-    
+
     def create(self, validated_data):
         try:
             return super().create(validated_data)

@@ -22,8 +22,12 @@ class CommentBase(models.Model):
 
 
 class ListComment(CommentBase):
-    list = models.ForeignKey(List, on_delete=models.CASCADE)
+    list = models.ForeignKey(
+        List, related_name='listcomment', on_delete=models.CASCADE
+    )
 
 
 class RatingComment(CommentBase):
-    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+    rating = models.ForeignKey(
+        Rating, related_name='ratingcomment', on_delete=models.CASCADE
+    )

@@ -7,6 +7,7 @@ class ListSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     movies = MovieSerializer(many=True, required=False)
+    comments_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -16,7 +17,7 @@ class ListSerializer(serializers.ModelSerializer):
         model = List
         fields = [
             'id', 'owner', 'is_owner', 'created_at', 'updated_at', 'title',
-            'description', 'movies'
+            'description', 'movies', 'comments_count'
         ]
         read_only_fields = ['owner', 'created_at', 'updated_at']
 
