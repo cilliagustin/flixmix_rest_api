@@ -21,7 +21,13 @@ class MovieList(generics.ListCreateAPIView):
     ).order_by('-created_at')
 
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'title',
+        'directors',
+        'main_cast'
     ]
     ordering_fields = [
         'seen_count',
