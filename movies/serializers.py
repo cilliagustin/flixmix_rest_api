@@ -9,9 +9,12 @@ class MovieSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     avg_rating = serializers.SerializerMethodField()
     release_decade = serializers.ReadOnlyField()
-    seen_count = serializers.SerializerMethodField()
     poster = serializers.ImageField(required=False)
     seen_id = serializers.SerializerMethodField()
+    seen_count = serializers.ReadOnlyField()
+    watchlist_count = serializers.ReadOnlyField()
+    list_count = serializers.ReadOnlyField()
+    rating_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -19,12 +22,6 @@ class MovieSerializer(serializers.ModelSerializer):
 
     def get_avg_rating(self, obj):
         return obj.avg_rating()
-
-    def get_seen_count(self, obj):
-        return obj.seen_count()
-
-    def get_watchlist_count(self, obj):
-        return obj.watchlist_count()
 
     def get_seen_id(self, obj):
         user = self.context['request'].user
@@ -66,5 +63,6 @@ class MovieSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id', 'created_at',
             'updated_at', 'title', 'synopsis', 'directors', 'main_cast',
             'poster', 'release_year', 'release_decade', 'movie_genre',
-            'avg_rating', 'seen_count', 'watchlist_count', 'seen_id'
+            'avg_rating', 'seen_id', 'seen_count', 'watchlist_count',
+            'list_count', 'rating_count'
         ]

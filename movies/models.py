@@ -44,12 +44,6 @@ class Movie(models.Model):
                 round(ratings.aggregate(Avg('value'))['value__avg'], 2))
         return None
 
-    def seen_count(self):
-        return self.seen.count()
-
-    def watchlist_count(self):
-        return self.watchlist.count()
-
     @property
     def release_decade(self):
         return int(self.release_year / 10) * 10

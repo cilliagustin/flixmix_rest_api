@@ -1,4 +1,5 @@
-from rest_framework import status, permissions
+from django.db.models import Count
+from rest_framework import status, permissions, filters
 from django.http import Http404
 from rest_framework import generics
 from .models import Movie
@@ -12,7 +13,24 @@ class MovieList(generics.ListCreateAPIView):
     """
     serializer_class = MovieSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.annotate(
+        seen_count=Count('seen', distinct=True),
+        watchlist_count=Count('watchlist', distinct=True),
+        list_count=Count('lists', distinct=True),
+        rating_count=Count('rating', distinct=True),
+    ).order_by('-created_at')
+
+    filter_backends = [
+        filters.OrderingFilter
+    ]
+    ordering_fields = [
+        'seen_count',
+        'watchlist_count',
+        'list_count',
+        'rating_count',
+        'watchlist__created_at',
+        'seen__created_at',
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -25,4 +43,9 @@ class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MovieSerializer
     # Only the admin can edit/delete a movie
     permission_classes = [IsAdminOrReadOnly]
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.annotate(
+        seen_count=Count('seen', distinct=True),
+        watchlist_count=Count('watchlist', distinct=True),
+        list_count=Count('lists', distinct=True),
+        rating_count=Count('rating', distinct=True),
+    ).order_by('-created_at')
