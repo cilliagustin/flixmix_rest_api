@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 from .models import RatingComment, ListComment
 from .serializers import (
@@ -15,6 +16,12 @@ class ListCommentList(generics.ListCreateAPIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
     queryset = ListComment.objects.all()
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'list',
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -32,6 +39,12 @@ class RatingCommentList(generics.ListCreateAPIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
     queryset = RatingComment.objects.all()
+    filter_backends = [
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'rating',
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

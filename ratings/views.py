@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, filters
 from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 from .models import Rating
@@ -14,7 +15,11 @@ class RatingList(generics.ListCreateAPIView):
         comments_count=Count('ratingcomment', distinct=True),
     ).order_by('-created_at')
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'movie',
     ]
     ordering_fields = [
         'comments_count',

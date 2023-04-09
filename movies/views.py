@@ -1,5 +1,6 @@
 from django.db.models import Count, F, ExpressionWrapper, IntegerField
 from rest_framework import status, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from django.http import Http404
 from rest_framework import generics
 from .models import Movie
@@ -27,6 +28,13 @@ class MovieList(generics.ListCreateAPIView):
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
+        DjangoFilterBackend,
+    ]
+    filterset_fields = [
+        'owner__followed__owner__profile',
+        'seen__owner__profile',
+        'watchlist__owner__profile',
+        'owner__profile',
     ]
     search_fields = [
         'title',
