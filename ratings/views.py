@@ -4,6 +4,8 @@ from rest_framework import generics, permissions, filters
 from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 from .models import Rating
 from .serializers import RatingSerializer, RatingDetailSerializer
+from watchlist.models import Watchlist
+from seen_movie.models import Seen
 
 
 class RatingList(generics.ListCreateAPIView):
@@ -26,7 +28,24 @@ class RatingList(generics.ListCreateAPIView):
     ]
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        user = self.request.user
+        movie = serializer.validated_data['movie']
+
+        try:
+            # Check if the movie is in the user's watchlist
+            watchlist = Watchlist.objects.get(owner=user, movie=movie)
+            watchlist.delete()
+
+            # Check if the movie is marked as seen by the user
+            seen = Seen.objects.filter(owner=user, movie=movie).exists()
+            if not seen:
+                # If not, mark it as seen
+                Seen.objects.create(owner=user, movie=movie)
+
+        except Watchlist.DoesNotExist:
+            pass
+
+        serializer.save(owner=user)
 
 
 class RatingDetailView(generics.RetrieveUpdateDestroyAPIView):
