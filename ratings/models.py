@@ -10,7 +10,7 @@ class Rating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     value = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)])
-    review = models.TextField(max_length=250)
+    content = models.TextField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
