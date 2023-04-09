@@ -44,9 +44,5 @@ class Movie(models.Model):
                 round(ratings.aggregate(Avg('value'))['value__avg'], 2))
         return None
 
-    @property
-    def release_decade(self):
-        return int(self.release_year / 10) * 10
-
     def __str__(self):
         return self.title

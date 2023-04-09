@@ -6,6 +6,8 @@ from movies.serializers import MovieSerializer
 class ListSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
+    profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     movies = MovieSerializer(many=True, required=False)
     comments_count = serializers.ReadOnlyField()
 
@@ -16,8 +18,9 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = [
-            'id', 'owner', 'is_owner', 'created_at', 'updated_at', 'title',
-            'description', 'movies', 'comments_count'
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'created_at', 'updated_at', 'title', 'description',
+            'movies', 'comments_count'
         ]
         read_only_fields = ['owner', 'created_at', 'updated_at']
 

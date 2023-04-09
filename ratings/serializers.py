@@ -7,6 +7,7 @@ class RatingSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     movie_title = serializers.ReadOnlyField(source='movie.title')
     comments_count = serializers.ReadOnlyField()
 
@@ -17,8 +18,9 @@ class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id', 'movie', 'movie_title',
-            'value', 'review', 'created_at', 'updated_at', 'comments_count'
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'movie',
+            'movie_title', 'value', 'review', 'created_at', 'updated_at',
+            'comments_count'
         ]
 
     def create(self, validated_data):

@@ -1,17 +1,20 @@
 from rest_framework import serializers
 from .models import Movie
 from seen_movie.models import Seen
+from watchlist.models import Watchlist
 
 
 class MovieSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     avg_rating = serializers.SerializerMethodField()
     release_decade = serializers.ReadOnlyField()
     poster = serializers.ImageField(required=False)
     seen_id = serializers.SerializerMethodField()
     seen_count = serializers.ReadOnlyField()
+    watchlist_id = serializers.SerializerMethodField()
     watchlist_count = serializers.ReadOnlyField()
     list_count = serializers.ReadOnlyField()
     rating_count = serializers.ReadOnlyField()
@@ -30,6 +33,15 @@ class MovieSerializer(serializers.ModelSerializer):
                 owner=user, movie=obj
             ).first()
             return seen.id if seen else None
+        return None
+
+    def get_watchlist_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            watchlist = Watchlist.objects.filter(
+                owner=user, movie=obj
+            ).first()
+            return watchlist.id if watchlist else None
         return None
 
     def validate_poster(self, value):
@@ -60,9 +72,9 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id', 'created_at',
-            'updated_at', 'title', 'synopsis', 'directors', 'main_cast',
+            'title', 'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'created_at', 'updated_at', 'synopsis', 'directors', 'main_cast',
             'poster', 'release_year', 'release_decade', 'movie_genre',
-            'avg_rating', 'seen_id', 'seen_count', 'watchlist_count',
-            'list_count', 'rating_count'
+            'seen_id', 'seen_count', 'watchlist_id', 'watchlist_count',
+            'list_count', 'avg_rating', 'rating_count'
         ]

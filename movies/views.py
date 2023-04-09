@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, F, ExpressionWrapper, IntegerField
 from rest_framework import status, permissions, filters
 from django.http import Http404
 from rest_framework import generics
@@ -18,6 +18,10 @@ class MovieList(generics.ListCreateAPIView):
         watchlist_count=Count('watchlist', distinct=True),
         list_count=Count('lists', distinct=True),
         rating_count=Count('rating', distinct=True),
+        release_decade=ExpressionWrapper(
+            F('release_year') - F('release_year') % 10,
+            output_field=IntegerField()
+        )
     ).order_by('-created_at')
 
     filter_backends = [
@@ -27,7 +31,8 @@ class MovieList(generics.ListCreateAPIView):
     search_fields = [
         'title',
         'directors',
-        'main_cast'
+        'main_cast',
+        'release_decade',
     ]
     ordering_fields = [
         'seen_count',
