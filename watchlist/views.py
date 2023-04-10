@@ -23,7 +23,7 @@ class WatchlistList(generics.ListCreateAPIView):
             rating.delete()
         except Rating.DoesNotExist:
             pass
-        
+
         # Check if the movie is already in the seen list for the user
         try:
             seen = Seen.objects.get(owner=user, movie=movie)
@@ -32,7 +32,7 @@ class WatchlistList(generics.ListCreateAPIView):
             seen.delete()
         except Seen.DoesNotExist:
             pass
-        
+
         serializer.save(owner=user)
 
 
