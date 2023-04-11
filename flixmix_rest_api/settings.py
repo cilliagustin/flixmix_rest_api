@@ -52,7 +52,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', 'flixmix-api.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'agustin-cilli-flixmix-api.herokuapp.com']
 
 
 # Application definition
