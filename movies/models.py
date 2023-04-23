@@ -29,7 +29,6 @@ class Movie(models.Model):
     movie_genre = models.CharField(
         max_length=20,
         choices=GENRES_CHOICES,
-        blank=True
     )
 
     class Meta:
