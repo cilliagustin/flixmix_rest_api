@@ -67,4 +67,8 @@ class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
         watchlist_count=Count('watchlist', distinct=True),
         list_count=Count('lists', distinct=True),
         rating_count=Count('rating', distinct=True),
+        release_decade=ExpressionWrapper(
+            F('release_year') - F('release_year') % 10,
+            output_field=IntegerField()
+        )
     ).order_by('-created_at')
