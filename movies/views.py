@@ -36,12 +36,6 @@ class MovieList(generics.ListCreateAPIView):
         'watchlist__owner__profile',
         'owner__profile',
     ]
-    search_fields = [
-        'title',
-        'directors',
-        'main_cast',
-        'release_decade',
-    ]
     ordering_fields = [
         'seen_count',
         'watchlist_count',
@@ -50,6 +44,31 @@ class MovieList(generics.ListCreateAPIView):
         'watchlist__created_at',
         'seen__created_at',
     ]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Filter by title
+        title = self.request.query_params.get('title', None)
+        if title is not None:
+            queryset = queryset.filter(title__icontains=title)
+
+        # Filter by director
+        directors = self.request.query_params.get('directors', None)
+        if directors is not None:
+            queryset = queryset.filter(directors__icontains=directors)
+
+        # Filter by main cast
+        main_cast = self.request.query_params.get('main_cast', None)
+        if main_cast is not None:
+            queryset = queryset.filter(main_cast__icontains=main_cast)
+
+        # Filter by release decade
+        release_decade = self.request.query_params.get('release_decade', None)
+        if release_decade is not None:
+            queryset = queryset.filter(release_decade=release_decade)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
