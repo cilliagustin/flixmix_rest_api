@@ -24,13 +24,12 @@ class RatingSerializer(serializers.ModelSerializer):
     def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
 
-
     class Meta:
         model = Rating
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'movie',
-            'movie_title', 'value', 'content', 'created_at', 'updated_at',
-            'comments_count'
+            'movie_title', 'value', 'title', 'content', 'created_at', 
+            'updated_at', 'comments_count'
         ]
 
     def create(self, validated_data):
