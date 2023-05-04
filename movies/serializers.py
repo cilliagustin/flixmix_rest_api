@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Movie
 from seen_movie.models import Seen
 from watchlist.models import Watchlist
+from ratings.models import Rating
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -17,6 +18,7 @@ class MovieSerializer(serializers.ModelSerializer):
     watchlist_id = serializers.SerializerMethodField()
     watchlist_count = serializers.ReadOnlyField()
     list_count = serializers.ReadOnlyField()
+    rating_id = serializers.SerializerMethodField()
     rating_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
@@ -42,6 +44,15 @@ class MovieSerializer(serializers.ModelSerializer):
                 owner=user, movie=obj
             ).first()
             return watchlist.id if watchlist else None
+        return None
+
+    def get_rating_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            rating = Rating.objects.filter(
+                owner=user, movie=obj
+            ).first()
+            return rating.id if rating else None
         return None
 
     def validate_poster(self, value):
@@ -76,5 +87,5 @@ class MovieSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at', 'synopsis', 'directors', 'main_cast',
             'poster', 'release_year', 'release_decade', 'movie_genre',
             'seen_id', 'seen_count', 'watchlist_id', 'watchlist_count',
-            'list_count', 'avg_rating', 'rating_count'
+            'list_count', 'avg_rating', 'rating_count', 'rating_id'
         ]
