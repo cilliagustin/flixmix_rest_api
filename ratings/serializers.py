@@ -10,6 +10,8 @@ class RatingSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     movie_title = serializers.ReadOnlyField(source='movie.title')
+    movie_release_year = serializers.ReadOnlyField(source='movie.release_year')
+    movie_poster = serializers.ReadOnlyField(source='movie.poster.url')
     comments_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
@@ -20,8 +22,8 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image', 'movie',
-            'movie_title', 'value', 'title', 'content', 'created_at', 
-            'updated_at', 'comments_count'
+            'movie_title', 'movie_release_year', 'movie_poster', 'value',
+            'title', 'content', 'created_at', 'updated_at', 'comments_count'
         ]
 
     def create(self, validated_data):
