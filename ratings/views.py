@@ -19,6 +19,7 @@ class RatingList(generics.ListCreateAPIView):
     filter_backends = [
         filters.OrderingFilter,
         DjangoFilterBackend,
+        
     ]
     filterset_fields = [
         'movie',
@@ -26,6 +27,21 @@ class RatingList(generics.ListCreateAPIView):
     ordering_fields = [
         'comments_count',
     ]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Filter by Movie title
+        movie_title = self.request.query_params.get('movie_title', None)
+        if movie_title is not None:
+            queryset = queryset.filter(movie__title__icontains=movie_title)
+
+        # Filter by Creator
+        owner = self.request.query_params.get('owner', None)
+        if owner is not None:
+            queryset = queryset.filter(owner__username__icontains=owner)
+
+        return queryset
 
     def perform_create(self, serializer):
         user = self.request.user
