@@ -54,7 +54,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost', 
+    'localhost',
+    '8000-cilliagusti-flixmixrest-ltsf57bboqc.ws-eu97.gitpod.io',
     os.environ.get('ALLOWED_HOST')
 ]
 
