@@ -11,6 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     seen_count = serializers.ReadOnlyField()
     watchlist_count = serializers.ReadOnlyField()
     list_count = serializers.ReadOnlyField()
+    rating_count = serializers.ReadOnlyField()
     followers_count = serializers.ReadOnlyField()
     following_count = serializers.ReadOnlyField()
 
@@ -33,6 +34,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_at', 'updated_at', 'name',
             'description', 'image', 'favorite_genre', 'is_admin',
             'is_owner', 'following_id', 'movie_count', 'seen_count',
-            'watchlist_count', 'list_count', 'followers_count',
-            'following_count'
+            'rating_count', 'watchlist_count', 'list_count',
+            'followers_count', 'following_count'
         ]

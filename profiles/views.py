@@ -12,6 +12,7 @@ class ProfileList(generics.ListAPIView):
         movie_count=Count('owner__movie', distinct=True),
         seen_count=Count('owner__seen', distinct=True),
         watchlist_count=Count('owner__watchlist', distinct=True),
+        rating_count=Count('owner__rating', distinct=True),
         list_count=Count('owner__list', distinct=True),
         followers_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True),
