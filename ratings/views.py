@@ -41,7 +41,7 @@ class RatingList(generics.ListCreateAPIView):
         if owner is not None:
             queryset = queryset.filter(owner__username__icontains=owner)
 
-         # Filter by Owner ID
+        # Filter by Owner ID
         owner_id = self.request.query_params.get('owner_id', None)
         if owner_id is not None:
             queryset = queryset.filter(owner__id=owner_id)
