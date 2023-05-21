@@ -36,10 +36,15 @@ class RatingList(generics.ListCreateAPIView):
         if movie_title is not None:
             queryset = queryset.filter(movie__title__icontains=movie_title)
 
-        # Filter by Creator
+        # Filter by Owner Username
         owner = self.request.query_params.get('owner', None)
         if owner is not None:
             queryset = queryset.filter(owner__username__icontains=owner)
+
+         # Filter by Owner ID
+        owner_id = self.request.query_params.get('owner_id', None)
+        if owner_id is not None:
+            queryset = queryset.filter(owner__id=owner_id)
 
         return queryset
 
