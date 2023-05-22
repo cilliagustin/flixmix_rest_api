@@ -19,10 +19,10 @@ class RatingList(generics.ListCreateAPIView):
     filter_backends = [
         filters.OrderingFilter,
         DjangoFilterBackend,
-        
     ]
     filterset_fields = [
         'movie',
+        'owner__followed__owner__profile',
     ]
     ordering_fields = [
         'comments_count',
