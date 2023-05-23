@@ -2,10 +2,11 @@ from rest_framework import serializers
 from .models import List
 from movies.models import Movie
 
+
 class MovieDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'poster']
+        fields = ['id', 'title', 'poster', 'release_year']
 
 
 class ListSerializer(serializers.ModelSerializer):
@@ -14,7 +15,8 @@ class ListSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     comments_count = serializers.ReadOnlyField()
-    movies_details = MovieDetailsSerializer(many=True, read_only=True, source='movies')
+    movies_details = MovieDetailsSerializer(
+        many=True, read_only=True, source='movies')
 
     def get_is_owner(self, obj):
         request = self.context['request']
