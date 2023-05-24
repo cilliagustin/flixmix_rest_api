@@ -17,6 +17,10 @@ class ListList(generics.ListCreateAPIView):
         filters.OrderingFilter,
         filters.SearchFilter,
     ]
+    filterset_fields = [
+        'owner__followed__owner__profile',
+        'owner__profile',
+    ]
     search_fields = [
         'title',
         'movies__title',
@@ -24,6 +28,30 @@ class ListList(generics.ListCreateAPIView):
     ordering_fields = [
         'comments_count',
     ]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Filter by List title
+        title = self.request.query_params.get('title', None)
+        if title is not None:
+            queryset = queryset.filter(title__icontains=title)
+
+        return queryset
+
+        # Filter by Movie title
+        movie_title = self.request.query_params.getlist('movie_title')
+        if movie_title:
+            queryset = queryset.filter(
+                movies__title__in=movie_title
+            ).distinct()
+
+        # Filter by Owner Username
+        owner = self.request.query_params.get('owner', None)
+        if owner is not None:
+            queryset = queryset.filter(owner__username__icontains=owner)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
