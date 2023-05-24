@@ -22,7 +22,6 @@ class ListList(generics.ListCreateAPIView):
         'owner__profile',
     ]
     search_fields = [
-        'title',
         'movies__title',
     ]
     ordering_fields = [
@@ -38,13 +37,6 @@ class ListList(generics.ListCreateAPIView):
             queryset = queryset.filter(title__icontains=title)
 
         return queryset
-
-        # Filter by Movie title
-        movie_title = self.request.query_params.getlist('movie_title')
-        if movie_title:
-            queryset = queryset.filter(
-                movies__title__in=movie_title
-            ).distinct()
 
         # Filter by Owner Username
         owner = self.request.query_params.get('owner', None)
