@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, filters
 from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 from .models import List
@@ -16,6 +17,7 @@ class ListList(generics.ListCreateAPIView):
     filter_backends = [
         filters.OrderingFilter,
         filters.SearchFilter,
+        DjangoFilterBackend,
     ]
     filterset_fields = [
         'owner__followed__owner__profile',
