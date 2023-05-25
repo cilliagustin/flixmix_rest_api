@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'watchlist',
     'lists',
     'comments',
+    'reports',
 ]
 
 SITE_ID = 1
