@@ -17,13 +17,6 @@ class WatchlistList(generics.ListCreateAPIView):
         user = self.request.user
         movie = serializer.validated_data['movie']
 
-        # Check if the movie has a rating and delete it
-        try:
-            rating = Rating.objects.get(owner=user, movie=movie)
-            rating.delete()
-        except Rating.DoesNotExist:
-            pass
-
         # Check if the movie is already in the seen list for the user
         try:
             seen = Seen.objects.get(owner=user, movie=movie)

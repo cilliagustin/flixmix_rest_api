@@ -49,24 +49,7 @@ class RatingList(generics.ListCreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
-        user = self.request.user
-        movie = serializer.validated_data['movie']
-
-        try:
-            # Check if the movie is in the user's watchlist
-            watchlist = Watchlist.objects.get(owner=user, movie=movie)
-            watchlist.delete()
-
-            # Check if the movie is marked as seen by the user
-            seen = Seen.objects.filter(owner=user, movie=movie).exists()
-            if not seen:
-                # If not, mark it as seen
-                Seen.objects.create(owner=user, movie=movie)
-
-        except Watchlist.DoesNotExist:
-            pass
-
-        serializer.save(owner=user)
+        serializer.save(owner=self.request.user)
 
 
 class RatingDetailView(generics.RetrieveUpdateDestroyAPIView):
