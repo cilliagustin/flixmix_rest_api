@@ -28,13 +28,12 @@ class ReportSerializer(serializers.ModelSerializer):
 
         for report in existing_reports:
             if report.is_closed:
-                # If a closed report exists, create a new report
-                return super().create(validated_data)
+                # Delete the previous closed report
+                report.delete()
             else:
                 raise serializers.ValidationError({
                     'detail': 'You have already reported this movie.'
                 })
 
-        # If no existing report is found, create a new report
+        # Create a new report
         return super().create(validated_data)
-
