@@ -32,7 +32,7 @@ class ReportList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class ReportDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ReportDetailView(generics.RetrieveDestroyAPIView):
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = ReportSerializer
     queryset = Report.objects.all()
