@@ -61,9 +61,9 @@ class MovieSerializer(serializers.ModelSerializer):
     def get_report_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
-            report = Report.objects.filter(owner=user, movie=obj).first()
-            if report and report.is_closed:
-                return None
+            report = Report.objects.filter(
+                owner=user, movie=obj
+            ).first()
             return report.id if report else None
         return None
 
