@@ -16,24 +16,13 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'profile_id', 'profile_image', 'movie',
             'movie_title', 'movie_release_year', 'movie_poster', 'content',
-            'created_at', 'updated_at', 'is_closed'
+            'created_at',
         ]
 
     def create(self, validated_data):
-        owner = self.context['request'].user
-        movie = validated_data['movie']
-
-        # Check if the user has already reported the movie
-        existing_reports = Report.objects.filter(owner=owner, movie=movie)
-
-        for report in existing_reports:
-            if report.is_closed:
-                # Delete the previous closed report
-                report.delete()
-            else:
-                raise serializers.ValidationError({
-                    'detail': 'You have already reported this movie.'
-                })
-
-        # Create a new report
-        return super().create(validated_data)
+        try:
+            return super().create(validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError({
+                'detail': 'You already reported an error in this movie!'
+            })

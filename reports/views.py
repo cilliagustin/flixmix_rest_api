@@ -11,16 +11,10 @@ class ReportList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Report.objects.all()
     filter_backends = [filters.OrderingFilter]
-    ordering_fields = ['is_closed', 'created_at']
+    ordering_fields = ['created_at']
 
     def get_queryset(self):
         queryset = super().get_queryset()
-
-        # Filter by is_closed
-        is_closed = self.request.query_params.get('is_closed', None)
-        if is_closed is not None:
-            is_closed = is_closed.lower() == 'true'
-            queryset = queryset.filter(is_closed=is_closed)
 
         # Filter by movie_title
         movie_title = self.request.query_params.get('movie_title', None)
@@ -31,9 +25,6 @@ class ReportList(generics.ListCreateAPIView):
         owner = self.request.query_params.get('owner', None)
         if owner is not None:
             queryset = queryset.filter(owner__username__icontains=owner)
-
-        # Order by is_closed (false first) and then by created_at
-        queryset = queryset.order_by('is_closed', '-created_at')
 
         return queryset
 

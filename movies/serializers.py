@@ -22,7 +22,7 @@ class MovieSerializer(serializers.ModelSerializer):
     rating_id = serializers.SerializerMethodField()
     rating_count = serializers.ReadOnlyField()
     report_id = serializers.SerializerMethodField()
-    report_count = serializers.SerializerMethodField()
+    report_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
@@ -66,10 +66,6 @@ class MovieSerializer(serializers.ModelSerializer):
                 return None
             return report.id if report else None
         return None
-
-    # Get open reports count
-    def get_report_count(self, obj):
-        return Report.objects.filter(movie=obj, is_closed=False).count()
 
     def validate_poster(self, value):
         if value:

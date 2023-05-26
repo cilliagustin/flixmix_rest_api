@@ -8,8 +8,10 @@ class Report(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     content = models.TextField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_closed = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['owner', 'movie']
 
     def __str__(self):
         return f'{self.owner} reported {self.movie}'
