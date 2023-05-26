@@ -15,7 +15,12 @@ The backend segment of the project primarily emphasizes its administrative aspec
 ## Database
 The subsequent models were designed to depict the structural layout of the application's database model:
 
-<!-- ADD MODEL DIAGRAM -->
+<details>
+<summary>View diagram</summary>
+
+![screenshot](documentation/diagram.png)
+</details>
+
 
 #### User Model
 - The User model is a base model that comes by default with the django auth module
