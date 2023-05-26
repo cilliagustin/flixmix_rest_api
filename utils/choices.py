@@ -1,4 +1,4 @@
-GENRES_CHOICES = [    
+GENRES_CHOICES = [
     ('action', 'Action'),
     ('adventure', 'Adventure'),
     ('comedy', 'Comedy'),

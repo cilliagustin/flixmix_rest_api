@@ -40,7 +40,7 @@ JWT_AUTH_SAMESITE = 'None'
 
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'flixmix_rest_api.serializers.CurrentUserSerializer'
+    'USER_DETAILS_SERIALIZER': 'flixmix_rest_api.serializers.CurrentUserSerializer'  # noqa
 }
 
 
@@ -114,7 +114,6 @@ else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r"^https://.*\.gitpod\.io$",
     ]
-
 
 CORS_ALLOW_CREDENTIALS = True
 
