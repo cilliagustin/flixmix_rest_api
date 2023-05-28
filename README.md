@@ -6,6 +6,7 @@ This code repository hosts the collection of APIs implemented with Django REST F
 
 
 ## User Stories
+[Click Here](https://github.com/users/cilliagustin/projects/4) to open the GitHub kanban Board and see all stories.
 The backend segment of the project primarily emphasizes its administrative aspect and encompasses two user stories:
 - User story: Admin control of database
     - As an Admin, I can edit or delete any movie uploaded to the database as well as the lists reviews and comments created by the users to control the database posted and avoid inappropriate content
@@ -188,22 +189,77 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 
 ### Manual testing of user stories
 
-- As an admin, I am able to create, edit and delete profiles, movies, lists, ratings, comments, followers, seen movies or watchlist movies and reports to control all content in the website.
+- As an admin, I am able to create, read, update and delete profiles, movies, lists, ratings, comments, followers, seen movies or watchlist movies and reports to control all content in the website.
 
 **Test** | **Action** | **Expected Result** | **Actual Result**
 -------- | ------------------- | ------------------- | -----------------
-Comments | Create, update & delete comment | A comment can be created, edited or deleted | Works as expected
+Comments | Create, read, update & delete comment | A comment can be created, read, edited or deleted | Works as expected
 Followers | Create & delete follower | A follower can be created or deleted | Works as expected
-Lists | Create, update & delete list | A list can be created, edited or deleted | Works as expected
-Movies | Create, update & delete movie | A movie can be created, edited or deleted | Works as expected
-Profile | Create, update & delete profile | A profile can be created, edited or deleted | Works as expected
-Ratings | Create, update & delete ratings | A rating can be created, edited or deleted | Works as expected
-Report | Create & delete report | A report can be created or deleted | Works as expected
-Seen_movie | Create & delete seen movie | A movie can be marked as seen and this can be deleted | Works as expected
-Watchlist | Create & delete movie in the watchlist | A movie can be added top the watchlist and this can be deleted | Works as expected
+Lists | Create, read, update & delete list | A list can be created, read edited or deleted | Works as expected
+Movies | Create, read, update & delete movie | A movie can be created, read, edited or deleted | Works as expected
+Profile | Create, read update & delete profile | A profile can be created, read, edited or deleted | Works as expected
+Ratings | Create, read, update & delete ratings | A rating can be created, read, edited or deleted | Works as expected
+Report | Create, read & delete report | A report can be created read or deleted | Works as expected
+Seen_movie | Create read, & delete seen movie | A movie can be marked as seen, read and this can be deleted | Works as expected
+Watchlist | Create, read & delete movie in the watchlist | A movie can be added to the watchlist read and this can be deleted | Works as expected
 
 In addition, comments, dollowing, lists, profies, ratings, seen_movies and watchlist can be created by logged-in users only. Users can only update or delete the content which was created by themselves.
 Movies can only be edited or deleted by an admin and Reports can only be deleted by an admin.
+
+## Deployment
+
+### Forking the GitHub Repository
+
+1. Go to [the project repository](https://github.com/cilliagustin/flixmix_rest_api)
+2. In the right most top menu, click the "Fork" button.
+3. There will now be a copy of the repository in your own GitHub account.
+
+### Making a local clone
+
+1. Go to [the project repository](https://github.com/cilliagustin/flixmix_rest_api)
+2. Click on the "Code" button.
+3. Choose one of the three options (HTTPS, SSH or GitHub CLI) and then click copy.
+4. Open the terminal in you IDE program.
+5. Type `git clone` and paste the URL that was copied in step 3.
+6. Press Enter and the local clone will be created.
+
+### Alternatively by using Gitpod:
+
+1. Go to [the project repository](https://github.com/cilliagustin/flixmix_rest_api)
+2. Click the green button that says "Gitpod" and the project will now open up in Gitpod.
+
+### Deploying with Heroku
+
+I followed the below steps using the Code Institute tutorial:
+
+The following command in the Gitpod CLI will create the relevant files needed for Heroku to install your project dependencies `pip3 freeze --local > requirements.txt`. Please note this file should be added to a .gitignore file to prevent the file from being committed.
+
+1. Go to [Heroku.com](https://dashboard.heroku.com/apps) and log in; if you do not already have an account then you will need to create one.
+2. Click the `New` dropdown and select `Create New App`.
+3. Enter a name for your new project, all Heroku apps need to have a unique name, you will be prompted if you need to change it.
+4. Select the region you are working in.
+
+#### Heroku Settings  
+You will need to set your Environment Variables - this is a key step to ensuring your application is deployed properly.
+1. In the Settings tab, click on `Reveal Config Vars` and set the following variables:
+    - Key as `ALLOWED_HOSTS` and the value as the name of you project with '.herokuapp.com' appended to the end e.g.  `example-app.herokuapp.com`. Click the Add button.
+    - Key as `CLOUDINARY_URL` and the value as your cloudinary API Environment variable e.g. `cloudinary://**************:**************@*********`. Click the Add button.
+    - Key as `SECRET_KEY` and the value as a complex string which will be used to provide cryptographic signing. The use of a secret key generator is recommended such as [https://djecrety.ir](https://djecrety.ir/). Click the Add button.
+    - Ensure the key `DATABASE_URL` is already populated. This should have been created automatically by Heroku.
+    - The `DATABASE_URL` should be copied into your local `.env`, created during the cloning process.
+    - To make authenticated requests to this API (e.g. from a fontend application) you are required to add the key `CLIENT_ORIGIN` with the value set as the URL you will be sending the authentication request from.
+    - Additionally, a `CLIENT_ORIGIN_DEV` key can be set with the value of a development server (IP or URL) for use during local development.
+
+#### Heroku Deployment
+
+In the Deploy tab:
+
+1. Connect your Heroku account to your Github Repository following these steps:
+   - Click on the `Deploy` tab and choose `Github-Connect to Github`.
+   - Enter the GitHub repository name and click on `Search`.
+   - Choose the correct repository for your application and click on `Connect`.
+2. You can then choose to deploy the project manually or automatically, automatic deployment will generate a new application every time you push a change to Github, whereas manual deployment requires you to push the `Deploy Branch` button whenever you want a change made.
+3. Once you have chosen your deployment method and have clicked `Deploy Branch` your application will be built and you should now see the `View` button, click this to open your application.
 
 ### Code
 This project was created based on the Code Institute's Django REST API walkthrough project 'Moments' which was a great learning experience.
