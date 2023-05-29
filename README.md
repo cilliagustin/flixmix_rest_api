@@ -119,6 +119,7 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Comments serializers | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/comments/serializers.py |
 | Comments urls | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/comments/urls.py |
 | Comments views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/comments/views.py |
+| Comments tests | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/comments/tests.py |
 
 | File | URL |
 | --- | --- |
@@ -127,6 +128,7 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Followers serializers | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/followers/serializers.py |
 | Followers urls | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/followers/urls.py |
 | Followers views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/followers/views.py |
+| Followers tests | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/followers/tests.py |
 
 
 
@@ -137,6 +139,7 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Lists serializers | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/lists/serializers.py |
 | Lists urls | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/lists/urls.py |
 | Lists views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/lists/views.py |
+| Lists tests | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/lists/tests.py |
 
 | File | URL |
 | --- | --- |
@@ -145,6 +148,7 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Movies serializers | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/movies/serializers.py |
 | Movies urls | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/movies/urls.py |
 | Movies views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/movies/views.py |
+| Movies tests | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/movies/views.py |
 
 | File | URL |
 | --- | --- |
@@ -161,6 +165,7 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Ratings serializers | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/ratings/serializers.py |
 | Ratings urls | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/ratings/urls.py |
 | Ratings views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/ratings/views.py |
+| Ratings tests | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/ratings/tests.py |
 
 | File | URL |
 | --- | --- |
