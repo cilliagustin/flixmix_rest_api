@@ -3,10 +3,24 @@ from .models import List
 from movies.models import Movie
 
 
+"""
+Movie serializer to provide movie information in the list.
+Provides the movie id, title, poster and release year.
+"""
+
+
 class MovieDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['id', 'title', 'poster', 'release_year']
+
+
+"""
+Serializer for the list.
+Provides owners information (id, image and username).
+Gets the comment count provided by the views.
+Gets the movie detaiuls from the MovieDetailsSerializer.
+"""
 
 
 class ListSerializer(serializers.ModelSerializer):
