@@ -4,6 +4,13 @@ from .models import Report
 
 
 class ReportSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the report.
+    Provides owners information (id, image and username).
+    Provides movie information (id, image title and release year).
+    Raises an error if the user tries to report a movie they already have
+    reported.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')

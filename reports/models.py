@@ -4,6 +4,9 @@ from movies.models import Movie
 
 
 class Report(models.Model):
+    """
+    Report model, related to 'owner', i.e. a User instance and movie model.
+    """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     content = models.TextField(max_length=250)

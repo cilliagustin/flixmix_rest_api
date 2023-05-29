@@ -7,6 +7,10 @@ from .serializers import ReportSerializer
 
 
 class ReportList(generics.ListCreateAPIView):
+    """
+    Detail of the report. Without log in status only has reading permissions.
+    Provides custom search fields for movie title or owner username.
+    """
     serializer_class = ReportSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Report.objects.all()
@@ -33,6 +37,10 @@ class ReportList(generics.ListCreateAPIView):
 
 
 class ReportDetailView(generics.RetrieveDestroyAPIView):
+    """
+    Detail of the movie. Without the admin the user status only has reading
+    permissions.
+    """
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = ReportSerializer
     queryset = Report.objects.all()
