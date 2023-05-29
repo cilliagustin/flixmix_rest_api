@@ -3,14 +3,12 @@ from rest_framework import serializers
 from .models import RatingComment, ListComment
 
 
-"""
-Basic serializer for comment, the ListCommentSerializer and
-RatingCommentSerializer will inherit from here.
-Also provides owners information (id, image and username)
-"""
-
-
 class BaseCommentSerializer(serializers.ModelSerializer):
+    """
+    Basic serializer for comment, the ListCommentSerializer and
+    RatingCommentSerializer will inherit from here.
+    Also provides owners information (id, image and username)
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -36,48 +34,38 @@ class BaseCommentSerializer(serializers.ModelSerializer):
         ]
 
 
-"""
-Inherits from BaseCommentSerializer and adds the model and the field list
-"""
-
-
 class ListCommentSerializer(BaseCommentSerializer):
-
+    """
+    Inherits from BaseCommentSerializer and adds the model and the field list
+    """
     class Meta(BaseCommentSerializer.Meta):
         model = ListComment
         fields = BaseCommentSerializer.Meta.fields + ['list']
 
 
-"""
-Inherits from ListCommentSerializer and adds the list id
-"""
-
-
 class ListCommentDetailSerializer(ListCommentSerializer):
+    """
+    Inherits from ListCommentSerializer and adds the list id
+    """
     list_id = serializers.ReadOnlyField(source='list.id')
 
     class Meta(ListCommentSerializer.Meta):
         fields = ListCommentSerializer.Meta.fields + ['list_id']
 
 
-"""
-Inherits from BaseCommentSerializer and adds the model and the field rating
-"""
-
-
 class RatingCommentSerializer(BaseCommentSerializer):
-
+    """
+    Inherits from BaseCommentSerializer and adds the model and the field rating
+    """
     class Meta(BaseCommentSerializer.Meta):
         model = RatingComment
         fields = BaseCommentSerializer.Meta.fields + ['rating']
 
 
-"""
-Inherits from RatingCommentDetailSerializer and adds the rating id
-"""
-
-
 class RatingCommentDetailSerializer(RatingCommentSerializer):
+    """
+    Inherits from RatingCommentDetailSerializer and adds the rating id
+    """
     rating_id = serializers.ReadOnlyField(source='rating.id')
 
     class Meta(RatingCommentSerializer.Meta):

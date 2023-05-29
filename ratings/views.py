@@ -10,7 +10,7 @@ from seen_movie.models import Seen
 
 class RatingList(generics.ListCreateAPIView):
     """
-    Detail of the movie. Without log in status only has reading permissions.
+    List of ratings. Without log in status only has reading permissions.
     Provides the ammount of comments the rating has.
     Provides filtering for the movie and owner a user follows.
     Provides custom search fields for movie title, owner username, owner id.

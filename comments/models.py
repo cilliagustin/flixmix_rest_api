@@ -22,12 +22,18 @@ class CommentBase(models.Model):
 
 
 class ListComment(CommentBase):
+    """
+    ListComment inherits from CommentBase and adds the list
+    """
     list = models.ForeignKey(
         List, related_name='listcomment', on_delete=models.CASCADE
     )
 
 
 class RatingComment(CommentBase):
+    """
+    RatingComment inherits from CommentBase and adds the rating
+    """
     rating = models.ForeignKey(
         Rating, related_name='ratingcomment', on_delete=models.CASCADE
     )

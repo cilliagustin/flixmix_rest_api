@@ -5,16 +5,15 @@ from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 from .models import List
 from .serializers import ListSerializer
 
-"""
-List of lists. Without log in status only has reading permissions.
-Provides the ammount of comments the list has.
-Has a search field for the movie title.
-Provides filtering for the owner and owner a user follows.
-Provides custom search fields for list title, owner username, owner id.
-"""
-
 
 class ListList(generics.ListCreateAPIView):
+    """
+    List of lists. Without log in status only has reading permissions.
+    Provides the ammount of comments the list has.
+    Has a search field for the movie title.
+    Provides filtering for the owner and owner a user follows.
+    Provides custom search fields for list title, owner username, owner id.
+    """
     serializer_class = ListSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
@@ -62,15 +61,13 @@ class ListList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-"""
-Detail of lists. If the user is not the owner or admin
-they only have reading permissions.
-Comments are filtered by lists.
-Provides the ammount of comments the list has.
-"""
-
-
 class ListDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Detail of lists. If the user is not the owner or admin
+    they only have reading permissions.
+    Comments are filtered by lists.
+    Provides the ammount of comments the list has.
+    """
     permission_classes = [IsOwnerOrAdminOrReadOnly]
     serializer_class = ListSerializer
     queryset = List.objects.annotate(
