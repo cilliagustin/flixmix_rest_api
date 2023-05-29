@@ -9,6 +9,12 @@ from .serializers import (
     RatingCommentDetailSerializer
 )
 
+"""
+List of comments for lists. Without log in status only has
+reading permissions.
+Comments are filtered by lists.
+"""
+
 
 class ListCommentList(generics.ListCreateAPIView):
     serializer_class = ListCommentSerializer
@@ -27,10 +33,24 @@ class ListCommentList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+"""
+Detail of comments for lists. If the user is not the owner or admin
+they only have reading permissions.
+Comments are filtered by lists.
+"""
+
+
 class ListCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrAdminOrReadOnly]
     serializer_class = ListCommentDetailSerializer
     queryset = ListComment.objects.all()
+
+
+"""
+List of comments for ratings. Without log in status only has
+reading permissions.
+Comments are filtered by ratings.
+"""
 
 
 class RatingCommentList(generics.ListCreateAPIView):
@@ -48,6 +68,13 @@ class RatingCommentList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+"""
+Detail of comments for ratings. If the user is not the owner or admin
+they only have reading permissions.
+Comments are filtered by rating.
+"""
 
 
 class RatingCommentDetailView(generics.RetrieveUpdateDestroyAPIView):

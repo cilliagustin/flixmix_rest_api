@@ -3,6 +3,13 @@ from rest_framework import serializers
 from .models import RatingComment, ListComment
 
 
+"""
+Basic serializer for comment, the ListCommentSerializer and
+RatingCommentSerializer will inherit from here.
+Also provides owners information (id, image and username)
+"""
+
+
 class BaseCommentSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
@@ -29,11 +36,21 @@ class BaseCommentSerializer(serializers.ModelSerializer):
         ]
 
 
+"""
+Inherits from BaseCommentSerializer and adds the model and the field list
+"""
+
+
 class ListCommentSerializer(BaseCommentSerializer):
 
     class Meta(BaseCommentSerializer.Meta):
         model = ListComment
         fields = BaseCommentSerializer.Meta.fields + ['list']
+
+
+"""
+Inherits from ListCommentSerializer and adds the list id
+"""
 
 
 class ListCommentDetailSerializer(ListCommentSerializer):
@@ -43,11 +60,21 @@ class ListCommentDetailSerializer(ListCommentSerializer):
         fields = ListCommentSerializer.Meta.fields + ['list_id']
 
 
+"""
+Inherits from BaseCommentSerializer and adds the model and the field rating
+"""
+
+
 class RatingCommentSerializer(BaseCommentSerializer):
 
     class Meta(BaseCommentSerializer.Meta):
         model = RatingComment
         fields = BaseCommentSerializer.Meta.fields + ['rating']
+
+
+"""
+Inherits from RatingCommentDetailSerializer and adds the rating id
+"""
 
 
 class RatingCommentDetailSerializer(RatingCommentSerializer):
