@@ -7,6 +7,16 @@ from reports.models import Report
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the movie.
+    Provides owners information (id, image and username).
+    Provides owners information (id, image and username).
+    Gets the average rating provided by the model.
+    Gets the release decade, seen count, watchlist count, list count,
+    rating count and report count provided by the views.
+    Gets the seen id, watchlist id, rating id, report id if they exist.
+    Validates the image to make sure the size and proportions are correct.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')

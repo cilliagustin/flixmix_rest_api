@@ -10,7 +10,18 @@ from flixmix_rest_api.permissions import IsAdminOrReadOnly
 
 class MovieList(generics.ListCreateAPIView):
     """
-    List movies or create if logged in
+    List of Movies. Without log in status only has reading permissions.
+    Provides the ammount of times the movie was marked as seen.
+    Provides the ammount of times the movie was added to a watchlist.
+    Provides the ammount of times the movie was rated.
+    Provides the ammount of times the movie appears on a list.
+    Provides the ammount of reports the movie has.
+    Gets the release decade from the release year.
+    Has a search field for the movie title.
+    Provides filtering for the owner, owners a user follows, movies a profile
+    marked as seen, movies a profile added to a watchlist.
+    Provides custom search fields for movie title, director, main cast,
+    release decade and owner id.
     """
     serializer_class = MovieSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -83,7 +94,15 @@ class MovieList(generics.ListCreateAPIView):
 
 class MovieDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve a movie, only admins can edit it.
+    Detail of the movie. If the user is not the admin they only have reading
+    permissions.
+    Comments are filtered by lists.
+    Provides the ammount of times the movie was marked as seen.
+    Provides the ammount of times the movie was added to a watchlist.
+    Provides the ammount of times the movie was rated.
+    Provides the ammount of times the movie appears on a list.
+    Provides the ammount of reports the movie has.
+    Gets the release decade from the release year.
     """
     serializer_class = MovieSerializer
     # Only the admin can edit/delete a movie
