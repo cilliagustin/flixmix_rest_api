@@ -4,6 +4,13 @@ from followers.models import Follower
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the profile.
+    Gets the is admin field by the model.
+    Gets the movie count, seen count, watchlist count, list count,
+    rating count follower count and following count provided by the views.
+    Gets the following id if it exist.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()

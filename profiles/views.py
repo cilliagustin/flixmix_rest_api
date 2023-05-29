@@ -7,7 +7,19 @@ from flixmix_rest_api.permissions import IsOwnerOrAdminOrReadOnly
 
 
 class ProfileList(generics.ListAPIView):
-    # Only list profiles (creation is done with signals)
+    """
+    Only list profiles (creation is done with signals)
+    Comments are filtered by lists.
+    Provides the ammount of times the user movie marked a movie as seen.
+    Provides the ammount of times the user movie marked a movie as a future
+    watch.
+    Provides the ammount of times the user movie rated a movie.
+    Provides the ammount of times the user movie created a list.
+    Provides the ammount of profiles the user follows.
+    Provides the ammount of profiles the user is followed by.
+    Provides filtering for the profiles a user follows and profiles that
+    follow a user.
+    """
     queryset = Profile.objects.annotate(
         movie_count=Count('owner__movie', distinct=True),
         seen_count=Count('owner__seen', distinct=True),
@@ -44,6 +56,18 @@ class ProfileList(generics.ListAPIView):
 
 
 class ProfileDetailView(generics.RetrieveUpdateAPIView):
+    """
+    Detail of the profile. If the user is not the admin or the profile they
+    only have reading permissions.
+    Provides the ammount of times the user uploaded movie.
+    Provides the ammount of times the user movie marked a movie as seen.
+    Provides the ammount of times the user movie marked a movie as a future
+    watch.
+    Provides the ammount of times the user movie rated a movie.
+    Provides the ammount of times the user movie created a list.
+    Provides the ammount of profiles the user follows.
+    Provides the ammount of profiles the user is followed by.
+    """
     # Retrieve or update data if user is owner or admin
     permission_classes = [IsOwnerOrAdminOrReadOnly]
     queryset = Profile.objects.annotate(
