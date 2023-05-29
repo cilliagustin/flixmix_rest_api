@@ -4,6 +4,12 @@ from .models import Seen
 
 
 class SeenSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the seen movie.
+    Provides the movie title.
+    Raises an error if the user tries to mark a movie as seen that they
+    already have marked as that.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     movie_title = serializers.ReadOnlyField(source='movie.title')
 

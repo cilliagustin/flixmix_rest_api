@@ -7,6 +7,12 @@ from ratings.models import Rating
 
 
 class WatchlistList(generics.ListCreateAPIView):
+    """
+    List of movies in the watchlist. Without log in status only has reading
+    permissions.
+    When the user creates a watchlist movie is this is marked as seen it
+    deletes the seen instance.
+    """
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
@@ -30,6 +36,10 @@ class WatchlistList(generics.ListCreateAPIView):
 
 
 class WatchlistDetailView(generics.RetrieveDestroyAPIView):
+    """
+    Detail of the watchlist. Without the admin status or owner status the
+    user only has reading permissions.
+    """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = WatchlistSerializer
     queryset = Watchlist.objects.all()

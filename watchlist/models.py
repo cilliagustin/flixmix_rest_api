@@ -4,6 +4,9 @@ from movies.models import Movie
 
 
 class Watchlist(models.Model):
+    """
+    Watchlist model, related to 'owner', i.e. a User instance and Movie model.
+    """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(
         Movie, related_name='watchlist', on_delete=models.CASCADE

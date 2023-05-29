@@ -4,6 +4,9 @@ from movies.models import Movie
 
 
 class Seen(models.Model):
+    """
+    Seen model, related to 'owner', i.e. a User instance and Movie model.
+    """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(
         Movie, related_name='seen', on_delete=models.CASCADE

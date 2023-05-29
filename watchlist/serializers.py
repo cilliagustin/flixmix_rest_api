@@ -4,6 +4,12 @@ from .models import Watchlist
 
 
 class WatchlistSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the watchlist.
+    Provides the movie title.
+    Raises an error if the user tries to mark a movie as a future watch that
+    they already have marked as that.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     movie_title = serializers.ReadOnlyField(source='movie.title')
 
