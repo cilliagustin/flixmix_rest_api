@@ -6,6 +6,9 @@ from movies.models import Movie
 
 
 class Rating(models.Model):
+    """
+    Rating model, related to 'owner', i.e. a User instance and Movie model.
+    """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     value = models.IntegerField(

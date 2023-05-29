@@ -9,6 +9,12 @@ from seen_movie.models import Seen
 
 
 class RatingList(generics.ListCreateAPIView):
+    """
+    Detail of the movie. Without log in status only has reading permissions.
+    Provides the ammount of comments the rating has.
+    Provides filtering for the movie and owner a user follows.
+    Provides custom search fields for movie title, owner username, owner id.
+    """
     serializer_class = RatingSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
@@ -53,6 +59,11 @@ class RatingList(generics.ListCreateAPIView):
 
 
 class RatingDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Detail of rating. If the user is not the owner or admin
+    they only have reading permissions.
+    Provides the ammount of comments the list has.
+    """
     permission_classes = [IsOwnerOrAdminOrReadOnly]
     serializer_class = RatingDetailSerializer
     queryset = Rating.objects.annotate(

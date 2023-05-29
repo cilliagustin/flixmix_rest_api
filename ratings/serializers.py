@@ -5,6 +5,13 @@ from .models import Rating
 
 
 class RatingSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the rating.
+    Provides owners information (id, image and username).
+    Provides movie information (id, image title and release year).
+    Gets the comment count provided by the views.
+    Raises an error if the user tries to rate a movie they already have rated.
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
@@ -36,4 +43,8 @@ class RatingSerializer(serializers.ModelSerializer):
 
 
 class RatingDetailSerializer(RatingSerializer):
+    """
+    Inherits from RatingSerializer.
+    Adds the movie id.
+    """
     movie = serializers.ReadOnlyField(source='movie.id')
