@@ -192,6 +192,19 @@ I have used the recommended [CI Python Linter](https://pep8ci.herokuapp.com) to 
 | Watchlist views | https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/cilliagustin/flixmix_rest_api/main/watchlist/views.py |
 
 
+### Django Testing
+APITestCase was used to test the functionalities of the main apps: [Comments](./comments/tests.py), [Followers](./followers/tests.py), [Lists](./lists/tests.py), [Movies](./movies/tests.py) and [Ratings](./ratings/tests.py).
+
+
+
+
+
+
+This tests all passed without issues.
+
+![Test report](./documentation/djangotest.png)
+
+
 ### Manual testing of user stories
 
 - As an admin, I am able to create, read, update and delete profiles, movies, lists, ratings, comments, followers, seen movies or watchlist movies and reports to control all content in the website.
