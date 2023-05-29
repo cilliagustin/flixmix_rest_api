@@ -2,6 +2,11 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Follower
 
+"""
+When creating the follower raises an error if the user already follows the user
+and tries to create a new follow instance to that user.
+"""
+
 
 class FollowerSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
